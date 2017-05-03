@@ -1,0 +1,22 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "This is a simple project covering front and backend for an e-commerce application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karen-zheng/e-commerce.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karen-zheng/e-commerce/issues"
+  },
+  "homepage": "https://github.com/karen-zheng/e-commerce#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
