@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/karen-zheng/e-commerce#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "node-sass": "^4.5.2"
   }
 }
