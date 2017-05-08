@@ -4,7 +4,9 @@
   "description": "This is a simple project covering front and backend for an e-commerce application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "node-sass ./sass/main.scss ./static/main.css -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,8 @@
   "dependencies": {
     "express": "^4.15.2",
     "node-sass": "^4.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
