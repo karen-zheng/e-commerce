@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "sass": "node-sass ./sass/main.scss ./static/main.css -w",
+
+    "watchSass": "nodemon -e scss -w public/sass -x 'npm run sass'",
+
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
@@ -21,8 +24,5 @@
   "dependencies": {
     "express": "^4.15.2",
     "node-sass": "^4.5.2"
-  },
-  "devDependencies": {
-    "nodemon": "^1.11.0"
   }
 }

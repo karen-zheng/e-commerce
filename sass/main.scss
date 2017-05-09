@@ -1,6 +1,66 @@
-$passionateheadingcolour: #6b0e0e;
+/*-----------declare variables using the $ sign------------- */
+$base_color: #a36dc6;
+$logo_color: #6dc6bd;
 
-h1 {
-  color: $passionateheadingcolour;
-  border-bottom: 1px dashed $passionateheadingcolour;
+
+
+/* ----------declare functions or methods using the @ sign and
+pass in variables the function returns the first @return
+
+default value is declared gray
+
+functions only return one value-------------------------------*/
+@function border_color($color: gray) {
+  @return desaturate(darken($color, 20%), 25%)
 }
+
+@function light_border($color: gray){
+  @return lighten($color, 50%)
+}
+
+
+
+/*-------------------------- a mixin can return a whole chunk of
+style and is @included in other parts-------------------------*/
+@mixin menu_box($color) {
+  color: $color;
+  border: 2px solid border_color($color);
+  border-radius: 10px;
+}
+
+@mixin hover_box($color) {
+  background-color: border_color($color);
+  color: white;
+  border-color: light_border($color);
+}
+
+
+
+/*----------------------- main style -------------------------*/
+
+
+body{
+  text-decoration: none;
+}
+
+
+/* nesting elements*/
+h2{
+  @include menu_box($base_color);
+  &:hover {
+    @include hover_box($base_color)
+  }
+}
+
+.logo {
+  @include menu_box($logo_color);
+  &:hover {
+    @include hover_box($logo_color);
+  }
+}
+
+.menu {
+  display : flex;
+  flex-direction: row;
+}
+

@@ -5,7 +5,7 @@ const app = express();
 // use data.js
 const data = require("./data");
 
-//load categories on load
+//load unique categories on load
 const categories = [];
 data.forEach(item => {
     if (!categories.includes(item.category)){
@@ -25,7 +25,23 @@ app.get("/main.css", (request,response) => {
 
 //send data items
 app.get("/items", (request, response) => {
-    response.send(data);
+    const {category, collection} = request.query;
+
+    if (!category && !collection) {
+        response.send(data);
+        return;
+    }
+
+    //data.filter returns an array
+    const results = data.filter(item => {
+        if(category && collection) {
+            return item.category === category && item.collection === collection;
+        }
+
+        return (category && item.category === category) || (collection && item.collection === collection);
+    });
+
+    response.send(results);
 });
 
 //send categories
