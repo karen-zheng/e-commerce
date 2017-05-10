@@ -1,66 +1,103 @@
-/*-----------declare variables using the $ sign------------- */
-$base_color: #a36dc6;
-$logo_color: #6dc6bd;
+$mainColor: #8283b7;
+$contrastColor: #ffffff;
+$padding: 20px;
+$menuHeight: 60px;
+$footerHeight: 80px;
 
+/*------------------------------ menu--------------------------------*/
 
-
-/* ----------declare functions or methods using the @ sign and
-pass in variables the function returns the first @return
-
-default value is declared gray
-
-functions only return one value-------------------------------*/
-@function border_color($color: gray) {
-  @return desaturate(darken($color, 20%), 25%)
-}
-
-@function light_border($color: gray){
-  @return lighten($color, 50%)
-}
-
-
-
-/*-------------------------- a mixin can return a whole chunk of
-style and is @included in other parts-------------------------*/
-@mixin menu_box($color) {
-  color: $color;
-  border: 2px solid border_color($color);
-  border-radius: 10px;
-}
-
-@mixin hover_box($color) {
-  background-color: border_color($color);
-  color: white;
-  border-color: light_border($color);
-}
-
-
-
-/*----------------------- main style -------------------------*/
-
-
-body{
+a {
+  color: #111111;
   text-decoration: none;
 }
 
+a:hover {
+  color: $contrastColor;
+  background-color: $mainColor;
+  border-radius: 5px;
 
-/* nesting elements*/
-h2{
-  @include menu_box($base_color);
-  &:hover {
-    @include hover_box($base_color)
-  }
-}
-
-.logo {
-  @include menu_box($logo_color);
-  &:hover {
-    @include hover_box($logo_color);
-  }
 }
 
 .menu {
-  display : flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu .leftMenu, .menu .rightMenu {
   flex-direction: row;
 }
 
+.leftMenu .menuItem {
+  justify-content: flex-start;
+  padding: $padding;
+  height: $menuHeight;
+}
+
+.rightMenu {
+  justify-content: flex-end;
+  padding: $padding;
+  height: $menuHeight;
+}
+
+.menuItem, .cart {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/*---------------------------- menu hidden -----------------------------*/
+
+.hiddenCategoryMenu {
+  display: none;
+  position: absolute;
+  background-color: $contrastColor;
+  min-width: 160px;
+  padding: $padding;
+  z-index: 1;
+}
+
+.menuItem:hover .hiddenCategoryMenu {
+  display: block;
+}
+
+.hiddenCollectionMenu {
+  display: none;
+}
+
+.showCategoryMenu {
+  min-width: 160px;
+ ;
+
+}
+
+/*---------------------------------hero---------------------------------*/
+
+.heroImage {
+  dislay: flex;
+  background-image: url("images/Hero.jpg");
+  background-size: cover;
+  height: 400px;
+  flex-direction: column;
+
+}
+
+/*---------------------------------gallery---------------------------------*/
+
+
+
+
+/*------------------------------- footer ---------------------------------*/
+
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  background-color: $mainColor;
+  padding: $padding;
+  height: $footerHeight;
+}
+
+.footerItem {
+  color: $contrastColor;
+  padding-left: 20px;
+  padding-right: 20px;
+}

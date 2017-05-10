@@ -23,6 +23,8 @@ app.get("/main.css", (request,response) => {
     response.sendFile(__dirname + "/static/main.css");
 });
 
+app.use(express.static("static"));
+
 //send data items
 app.get("/items", (request, response) => {
     const {category, collection} = request.query;
