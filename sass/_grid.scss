@@ -1,7 +1,7 @@
 @mixin grid_base (
   $width: 960px,
   $gutter: 20px,
-  $columns: 12,
+  $columns: 3,
   $prefix : true,
   $push : true
 )
@@ -34,7 +34,7 @@
 @mixin generate_grid (
     $width: 960px,
     $gutter: 20px,
-    $columns: 12,
+    $columns: 3,
     $prefix : true,
     $push : true
 )

@@ -29,10 +29,10 @@ module.exports = [{
     category: "bracelet",
     collection: "a touch of leather"
 },{
-    name : "front back leather earrings",
+    name : "leather rings",
     price : 15,
-    description : "This is a handmade pair of earring.",
-    category: "earrings",
+    description : "This is a handmade leather ring",
+    category: "ring",
     collection: "a touch of leather"
 
 }];

@@ -1,8 +1,8 @@
 $mainColor: #8283b7;
 $contrastColor: #ffffff;
-$padding: 20px;
-$menuHeight: 60px;
-$footerHeight: 80px;
+$padding: 0.5rem;
+$menuHeight: 5rem;
+$footerHeight: 5rem;
 
 /*------------------------------ menu--------------------------------*/
 
@@ -12,60 +12,58 @@ a {
 }
 
 a:hover {
-  color: $contrastColor;
-  background-color: $mainColor;
-  border-radius: 5px;
-
+  color: $mainColor;
 }
 
 .menu {
   display: flex;
   justify-content: space-between;
-}
-
-.menu .leftMenu, .menu .rightMenu {
   flex-direction: row;
 }
 
-.leftMenu .menuItem {
+.leftMenu {
   justify-content: flex-start;
   padding: $padding;
   height: $menuHeight;
+  display:flex;
+  flex-direction:row;
+
 }
 
 .rightMenu {
   justify-content: flex-end;
   padding: $padding;
   height: $menuHeight;
+  display:flex;
+  flex-direction:row;
 }
 
-.menuItem, .cart {
-  padding-left: 20px;
-  padding-right: 20px;
+.menuItem {
+  padding: 1rem;
+}
+
+.menuCart {
+  padding: 1rem;
 }
 
 /*---------------------------- menu hidden -----------------------------*/
 
-.hiddenCategoryMenu {
-  display: none;
+.hiddenCategoryMenu, .hiddenCollectionMenu {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 3s, opacity 0.5s linear;
   position: absolute;
   background-color: $contrastColor;
   min-width: 160px;
   padding: $padding;
   z-index: 1;
+  border: 2px solid $contrastColor;
+  border-radius: 10px;
 }
 
-.menuItem:hover .hiddenCategoryMenu {
-  display: block;
-}
-
-.hiddenCollectionMenu {
-  display: none;
-}
-
-.showCategoryMenu {
-  min-width: 160px;
- ;
+.menuItem:hover .hiddenCategoryMenu, .menuItem:hover .hiddenCollectionMenu {
+  visibility: visible;
+  opacity: 1;
 
 }
 
@@ -73,16 +71,50 @@ a:hover {
 
 .heroImage {
   dislay: flex;
-  background-image: url("images/Hero.jpg");
-  background-size: cover;
-  height: 400px;
+  height: 350px;
   flex-direction: column;
-
+  position: relative;
 }
+
+
+.imageShow {
+  transition: visibility 3s, opacity 1s linear;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.imageHidden {
+  opacity: 0;
+  transition: visibility 3s, opacity 1s linear;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.previousLink, nextLink {
+  position: relative;
+}
+
 
 /*---------------------------------gallery---------------------------------*/
 
+.col-md-4 img{
+  height: 300px;
+  width: 300px;
+  padding: 30px;
+}
 
+.hiddenName {
+  display: none;
+}
+
+.showName {
+  display: block;
+}
 
 
 /*------------------------------- footer ---------------------------------*/
@@ -100,4 +132,8 @@ a:hover {
   color: $contrastColor;
   padding-left: 20px;
   padding-right: 20px;
+  a:hover {
+    color:black;
+  }
 }
+

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
     <script
             src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -21,14 +22,14 @@
     <link href="https://fonts.googleapis.com/css?family=Lora|Muli" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+
         <div class="menu">
             <div class="leftMenu">
                 <div class="menuItem">
                     <a  href="index.html">Company logo</a>
                 </div>
                 <div class="menuItem">
-                    <a  href="">Collection</a>
+                    <a href=""> Collection </a>
                     <div class="hiddenCollectionMenu">
                         <p>the stars</p>
                         <p>on the same boat</p>
@@ -36,7 +37,7 @@
                     </div>
                 </div>
                 <div class="menuItem">
-                    <a  href="">Category</a>
+                    <a  href=""> Category </a>
                     <div class="hiddenCategoryMenu">
                         <p>earrings</p>
                         <p>bracelets</p>
@@ -48,20 +49,53 @@
 
             <div class="rightMenu">
                 <div class="menuCart">
-                    <a  href="">Cart</a>
+                    <a href=""> Cart </a>
                 </div>
             </div>
         </div>
+        <div class="hiddenCollectionMenu">
+            <p>the stars</p>
+            <p>on the same boat</p>
+            <p>a touch of leather</p>
+        </div>
 
         <div class="heroImage">
+
+                <a class="previousLink" href="#"></a>
+                <img class="imageShow" src="images/Hero1.jpg" alt="first hero">
+                <img class="imageHidden" src="images/Hero2.jpg" alt="second hero">
+                <img class="imageHidden" src="images/Hero3.jpg" alt="third hero">
+                <img class="imageHidden" src="images/Hero4.jpg" alt="fourth hero">
+                <a class="nextLink" href="#"></a>
+
         </div>
-        <div class="gallery">
-            <div class="grid"></div>
-            <div class="grid"></div>
-            <div class="grid"></div>
-            <div class="grid"></div>
-            <div class="grid"></div>
-            <div class="grid"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4" >
+                    <img src="images/irishDancerPendant.jpg">
+                    <p class="hiddenName">Irish dancer pendant</p>
+                </div>
+                <div class="col-md-4" >
+                    <img src="images/boatWithLilyPendant.jpg">
+                    <p class="hiddenName">Boat with lily pendant</p>
+                </div>
+                <div class="col-md-4" >
+                    <img src="images/leatherbeigebracelet.jpg">
+                    <p class="hiddenName">Adjustable leather bracelet</p>
+                </div>
+                <div class="col-md-4" >
+                    <img src="images/leatherrings.jpg">
+                    <p class="hiddenName">Leather ring</p>
+                </div>
+                <div class="col-md-4" >
+                    <img src="images/planeAndCloudLariat.jpg">
+                    <p class="hiddenName">Plane and cloud lariat</p>
+                </div>
+                <div class="col-md-4" >
+                    <img  src="images/lilyring.jpg">
+                    <p class="hiddenName">Lily ring</p>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <a class="footerItem" href="http://www.karenzheng.com">about</a>
@@ -69,9 +103,68 @@
             <a class="footerItem" href="https://www.instagram.com/karen.y.zheng/">instagram</a>
             <a class="footerItem" href="http://www.facebook.com">facebook</a>
         </div>
-    </div>
+
 
     <script>
+        $(document).ready(function(){
+
+            var $imageItem = $(".col-md-4 img");
+
+            $imageItem.on("click", function() {
+
+                var name = $(".hiddenName");
+                name.addClass("showName").removeClass("hiddenName");
+
+            });
+
+            function nextLinkClicked(){
+
+                var currentActiveImage = $(".imageShow");
+                var nextActiveImage = currentActiveImage.next();
+
+                if(currentActiveImage.next().hasClass("nextLink")){
+                    nextActiveImage = $(".heroImage img").first();
+                }
+
+                currentActiveImage.removeClass("imageShow").addClass("imageHidden").css("z-index", -10);
+                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 20);
+
+                $(".heroImage img").not([currentActiveImage, nextActiveImage]).css("z-index", 1);
+
+            }
+
+            function previousLinkClicked(){
+
+                var currentActiveImage = $(".imageShow");
+                var nextActiveImage = currentActiveImage.prev();
+
+                if(currentActiveImage.prev().hasClass("previousLink")){
+                    nextActiveImage = $(".heroImage img").last();
+                }
+
+                currentActiveImage.addClass("imageHidden").removeClass("imageShow").css("z-index", -10);
+                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 20)
+
+
+                $(".heroImage img").not([currentActiveImage, nextActiveImage]).css("z-index", 1);
+
+            }
+
+
+            $(".nextLink").on("click", function(e){
+                nextLinkClicked();
+                e.preventDefault();
+            });
+
+
+            $(".previousLink").on("click", function(e){
+                previousLinkClicked();
+                e.preventDefault();
+            });
+
+            setInterval(nextLinkClicked, 4000);
+            console.log("jquery is ready now");
+        });
 
     </script>
 </body>
