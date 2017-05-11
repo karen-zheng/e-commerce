@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>Home</title>
     <script
             src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
@@ -60,14 +60,12 @@
         </div>
 
         <div class="heroImage">
-
                 <a class="previousLink" href="#"></a>
                 <img class="imageShow" src="images/Hero1.jpg" alt="first hero">
                 <img class="imageHidden" src="images/Hero2.jpg" alt="second hero">
                 <img class="imageHidden" src="images/Hero3.jpg" alt="third hero">
                 <img class="imageHidden" src="images/Hero4.jpg" alt="fourth hero">
                 <a class="nextLink" href="#"></a>
-
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -108,14 +106,25 @@
     <script>
         $(document).ready(function(){
 
-            var $imageItem = $(".col-md-4 img");
+            // item name display animation
 
-            $imageItem.on("click", function() {
-
-                var name = $(".hiddenName");
-                name.addClass("showName").removeClass("hiddenName");
+            $(".col-md-4").on("mouseover", function(event) {
+                var item = $(event.target);
+                if(item.next().is("p")){
+                item.next().addClass("showName").removeClass("hiddenName");
+                }
 
             });
+
+            $(".col-md-4").on("mouseout", function(event) {
+                var item = $(event.target);
+                if(item.next().is("p")){
+                    item.next().addClass("hiddenName").removeClass("showName");
+                }
+            });
+
+
+            // Carousel animation
 
             function nextLinkClicked(){
 

@@ -64,16 +64,18 @@ a:hover {
 .menuItem:hover .hiddenCategoryMenu, .menuItem:hover .hiddenCollectionMenu {
   visibility: visible;
   opacity: 1;
-
+  z-index: 20;
+  box-shadow: 0px 3px 4px #898989;
 }
 
 /*---------------------------------hero---------------------------------*/
 
 .heroImage {
   dislay: flex;
-  height: 350px;
+  height: 400px;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 
@@ -102,20 +104,39 @@ a:hover {
 
 /*---------------------------------gallery---------------------------------*/
 
+
 .col-md-4 img{
-  height: 300px;
-  width: 300px;
-  padding: 30px;
+  height: 250px;
+  width: 250px;
+  margin: 20px;
 }
 
 .hiddenName {
-  display: none;
+  text-align: center;
+  opacity: 0;
+  transition: visibility 3s, opacity 1s linear;
 }
 
 .showName {
-  display: block;
+  text-align: center;
+  opacity: 1;
+  transition: visibility 3s, opacity 1s linear;
 }
 
+/*---------------------------- item details ------------------------------*/
+
+#itemImage {
+  height: 600px;
+  padding: 10px 10px 20px 10px;
+  img {
+    width: 90%;
+  }
+}
+
+#itemDescription {
+  padding: 10px;
+  min-height: 200px;
+}
 
 /*------------------------------- footer ---------------------------------*/
 
