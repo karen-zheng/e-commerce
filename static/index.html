@@ -21,13 +21,13 @@
     <link rel="stylesheet" href="main.css"/>
     <link href="https://fonts.googleapis.com/css?family=Lora|Muli" rel="stylesheet">
 </head>
-<body>
-
+    <body>
+        <div class="logo">
+            <a  href="index.html"><h1>project</h1> </a>
+        </div>
         <div class="menu">
             <div class="leftMenu">
-                <div class="menuItem">
-                    <a  href="index.html">Company logo</a>
-                </div>
+
                 <div class="menuItem">
                     <a href=""> Collection </a>
                     <div class="hiddenCollectionMenu">
@@ -60,12 +60,14 @@
         </div>
 
         <div class="heroImage">
-                <a class="previousLink" href="#"></a>
-                <img class="imageShow" src="images/Hero1.jpg" alt="first hero">
-                <img class="imageHidden" src="images/Hero2.jpg" alt="second hero">
-                <img class="imageHidden" src="images/Hero3.jpg" alt="third hero">
-                <img class="imageHidden" src="images/Hero4.jpg" alt="fourth hero">
-                <a class="nextLink" href="#"></a>
+            <a class="ghost" href="">&nbspshop collections&nbsp</a>
+            <a class="previousLink" href="#"></a>
+            <img class="imageShow" src="images/Hero1.jpg" alt="first hero">
+            <img class="imageHidden" src="images/Hero2.jpg" alt="second hero">
+            <img class="imageHidden" src="images/Hero3.jpg" alt="third hero">
+            <img class="imageHidden" src="images/Hero4.jpg" alt="fourth hero">
+            <a class="nextLink" href="#"></a>
+
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -151,6 +153,30 @@
 
     <script>
         $(document).ready(function(){
+
+            //sticky menu
+            window.addEventListener("scroll", scrollingdown);
+
+            function scrollingdown() {
+                var targetPos = $(".menu").offset().top;
+
+                $(window).scroll(function () {
+                    var scrollPos = $(this).scrollTop();
+
+
+                    if (scrollPos > targetPos) {
+                        $(".menu").addClass("stickyMenu").removeClass("menu");
+                        $(".heroImage").css("margin-top", "80px");
+                    } else {
+                        $(".stickyMenu").removeClass("stickyMenu").addClass("menu");
+                        $(".heroImage").css("margin-top", "0px");
+                    }
+
+                });
+
+            }
+
+
 
             // item name display animation
 

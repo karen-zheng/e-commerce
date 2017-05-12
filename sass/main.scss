@@ -24,6 +24,12 @@ a:hover {
   color: $mainColor;
 }
 
+.logo {
+  font-family: "lora";
+  text-align: center;
+  padding-top: 3px;
+}
+
 .menu {
   display: flex;
   justify-content: space-between;
@@ -32,7 +38,7 @@ a:hover {
   box-shadow: $shadow;
   z-index: 20;
   position: relative;
-
+  width: 100%
 }
 
 .leftMenu {
@@ -59,6 +65,19 @@ a:hover {
 .menuCart {
   padding: 1rem;
 }
+
+.stickyMenu {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: $contrastColor;
+  box-shadow: $shadow;
+  z-index: 31;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+}
+
 
 /*---------------------------- menu hidden -----------------------------*/
 
@@ -115,6 +134,22 @@ a:hover {
   position: relative;
 }
 
+.ghost {
+  border-radius: 10px;
+  border: 2px solid black;
+  top: 40%;
+  left: 5%;
+  z-index: 30;
+  position: absolute;
+  padding: 2px;
+}
+
+.ghost:hover {
+  transition-duration: 0.5s;
+  background-color: black;
+  color: $contrastColor;
+  text-decoration: none;
+}
 
 /*---------------------------------featured collection---------------------------------*/
 .collectionImage img{
@@ -181,7 +216,7 @@ a:hover {
 
 .col-md-12 {
   height: 300px;
-  padding-top: 100px;
+  padding-top: 80px;
   font-style: italic;
   text-align: center;
   h1{
