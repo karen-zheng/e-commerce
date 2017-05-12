@@ -69,29 +69,75 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4" >
-                    <img src="images/irishDancerPendant.jpg">
-                    <p class="hiddenName">Irish dancer pendant</p>
+                <div class="col-md-12">
+                    <h1>
+                        new spring summer collection
+                    </h1>
+                    <footer>Reignite your outfit with a fresh look this season.</footer>
                 </div>
-                <div class="col-md-4" >
-                    <img src="images/boatWithLilyPendant.jpg">
-                    <p class="hiddenName">Boat with lily pendant</p>
+            </div>
+            <div class="row">
+                <div class="feature1">
+                    <div class="col-md-4">
+                        <div class="collectionDes">
+                            <h1>A touch of nature</h1>
+                            <footer>Luxurious natural materials meets precious metals.</footer>
+                        </div>
+                    </div>
+                    <div class="col-md-2" >
+                        <div class="collectionItem">
+                            <img src="images/leatherbeigebracelet.jpg">
+                            <p class="hiddenName">Adjustable leather bracelet</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="collectionImage" >
+                            <img src="images/DS3.jpg">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4" >
-                    <img src="images/leatherbeigebracelet.jpg">
-                    <p class="hiddenName">Adjustable leather bracelet</p>
+            </div>
+            <div class="row">
+                <div class="feature2">
+                    <div class="col-md-2" >
+                        <div class="collectionItem">
+                            <img src="images/irishDancerPendant.jpg">
+                            <p class="hiddenName">Irish dancer pendant</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="collectionImage" >
+                            <img src="images/DS4.jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="collectionDes">
+                            <h1>The stars</h1>
+                            <footer>Celebrate your uniqueness and successes</footer>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4" >
-                    <img src="images/leatherrings.jpg">
-                    <p class="hiddenName">Leather ring</p>
-                </div>
-                <div class="col-md-4" >
-                    <img src="images/planeAndCloudLariat.jpg">
-                    <p class="hiddenName">Plane and cloud lariat</p>
-                </div>
-                <div class="col-md-4" >
-                    <img  src="images/lilyring.jpg">
-                    <p class="hiddenName">Lily ring</p>
+            </div>
+            <div class="row">
+                <div class="feature3">
+                    <div class="col-md-4">
+                        <div class="collectionDes">
+                            <h1>On the same boat</h1>
+                            <footer>A soft romantic collection.</footer>
+                        </div>
+                    </div>
+                    <div class="col-md-2" >
+                        <div class="collectionItem">
+                            <img src="images/boatWithLilyPendant.jpg">
+                            <p class="hiddenName">Boat with lily pendant</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="collectionImage" >
+                            <img src="images/DS2.jpg">
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,7 +182,7 @@
                 }
 
                 currentActiveImage.removeClass("imageShow").addClass("imageHidden").css("z-index", -10);
-                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 20);
+                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 10);
 
                 $(".heroImage img").not([currentActiveImage, nextActiveImage]).css("z-index", 1);
 
@@ -152,7 +198,7 @@
                 }
 
                 currentActiveImage.addClass("imageHidden").removeClass("imageShow").css("z-index", -10);
-                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 20)
+                nextActiveImage.addClass("imageShow").removeClass("imageHidden").css("z-index", 10)
 
 
                 $(".heroImage img").not([currentActiveImage, nextActiveImage]).css("z-index", 1);
