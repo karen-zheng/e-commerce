@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link
+            rel="stylesheet"
+            href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+            integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+            crossorigin="anonymous">
+    <!--<script
+             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+             crossorigin="anonymous">
+     </script>-->
+    <link rel="stylesheet" href="/main.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lora|Muli" rel="stylesheet">
+</head>
+<body>
+    <div class="logo">
+        <a href="/"><h1>project</h1> </a>
+    </div>
+    <div class="menu">
+        <div class="leftMenu">
+            <div class="menuItem">
+                <a href=""> Collection </a>
+                <ul class="hiddenCollectionMenu">
+                    {% for collection in collections %}
+                    <li><a href="/collection/{{collection}}">{{ collection }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="menuItem">
+                <a  href=""> Category </a>
+                <ul class="hiddenCategoryMenu">
+                    {% for category in categories %}
+                    <li><a href="/category/{{category}}">{{ category }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="rightMenu">
+            <div class="menuCart">
+                <a href=""> Cart </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+        {%block body%}{%endblock%}
+    </div>
+
+    <div class="footer">
+        <a class="footerItem" href="http://www.karenzheng.com">about</a>
+        <a class="footerItem" href="https://www.instagram.com/karen.y.zheng/">contact</a>
+        <a class="footerItem" href="https://www.instagram.com/karen.y.zheng/">instagram</a>
+        <a class="footerItem" href="http://www.facebook.com">facebook</a>
+    </div>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+
+    <script>
+        //sticky menu
+        window.addEventListener("scroll", scrollingdown);
+
+        function scrollingdown() {
+
+            const targetPos = $(".menu").offset().top;
+
+            $(window).scroll(function () {
+                var scrollPos = $(this).scrollTop();
+
+                if (scrollPos > targetPos) {
+                    $(".menu").addClass("stickyMenu").removeClass("menu");
+                    $(".heroImage").css("margin-top", "80px");
+                } else {
+
+                    $(".stickyMenu").removeClass("stickyMenu").addClass("menu");
+                    $(".heroImage").css("margin-top", "0px");
+                }
+            });
+
+        }
+    </script>
+    {%block script%}{%endblock%}
+
+</body>

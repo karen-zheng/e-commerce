@@ -1,0 +1,74 @@
+{% extends "index.njk" %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4">
+            <div class="itemImage">
+                <img src="{{item.image}}">
+                <p class="hiddenName">{{ item.name }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!--<div class="row">
+        <div class="col-md-4">
+            <div class="itemImage">
+                <img src="images/irishDancerPendant.jpg">
+                <p class="hiddenName">Irish dancer pendant</p>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="itemImage">
+                <img src="images/boatWithLilyPendant.jpg">
+                <p class="hiddenName">Boat with lily pendant</p>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="itemImage">
+                <img src="images/leatherbeigebracelet.jpg">
+                <p class="hiddenName">Adjustable leather bracelet</p>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="itemImage">
+                <img src="images/leatherrings.jpg">
+                <p class="hiddenName">Leather ring</p>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="itemImage">
+                <img src="images/planeAndCloudLariat.jpg">
+                <p class="hiddenName">Plane and cloud lariat</p>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="itemImage">
+                <img  src="images/lilyring.jpg">
+                <p class="hiddenName">Lily ring</p>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    // item name display animation
+    $(".col-md-4").on("mouseover", function(event) {
+        var item = $(event.target);
+        if(item.next().is("p")){
+            item.next().addClass("showName").removeClass("hiddenName");
+        }
+    });
+
+    $(".col-md-4").on("mouseout", function(event) {
+        var item = $(event.target);
+        if(item.next().is("p")){
+            item.next().addClass("hiddenName").removeClass("showName");
+        }
+    });
+</script>
+{% endblock %}

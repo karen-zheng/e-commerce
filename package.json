@@ -20,6 +20,8 @@
   "homepage": "https://github.com/karen-zheng/e-commerce#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "node-sass": "^4.5.2"
+    "express-nunjucks": "^2.2.3",
+    "node-sass": "^4.5.2",
+    "nunjucks": "^3.0.0"
   }
 }

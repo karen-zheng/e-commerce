@@ -5,7 +5,12 @@ $menuHeight: 5rem;
 $footerHeight: 5rem;
 $shadow: 0px 2px 2px rgba(59, 57, 57, 0.4);
 
-@mixin featured {
+html, body, .flexContainer {
+  min-height: 100%;
+  height: 100%;
+}
+
+.feature {
   margin-bottom: 20%;
   width: 100%;
   display: flex;
@@ -16,12 +21,13 @@ $shadow: 0px 2px 2px rgba(59, 57, 57, 0.4);
 /*------------------------------ menu--------------------------------*/
 
 a {
-  color: #111111;
+  color: #111;
   text-decoration: none;
 }
 
 a:hover {
   color: $mainColor;
+  text-decoration: none;
 }
 
 .logo {
@@ -47,7 +53,6 @@ a:hover {
   height: $menuHeight;
   display:flex;
   flex-direction:row;
-
 }
 
 .rightMenu {
@@ -75,7 +80,7 @@ a:hover {
   z-index: 31;
   position: fixed;
   width: 100%;
-  top: 0px;
+  top: 0;
 }
 
 
@@ -92,6 +97,7 @@ a:hover {
   z-index: 1;
   border: 2px solid $contrastColor;
   border-radius: 10px;
+  list-style: none;
 }
 
 .menuItem:hover .hiddenCategoryMenu, .menuItem:hover .hiddenCollectionMenu {
@@ -99,12 +105,13 @@ a:hover {
   opacity: 1;
   z-index: 20;
   box-shadow: $shadow;
+
 }
 
 /*---------------------------------hero---------------------------------*/
 
 .heroImage {
-  dislay: flex;
+  display: flex;
   height: 400px;
   flex-direction: column;
   position: relative;
@@ -116,8 +123,8 @@ a:hover {
   transition: visibility 3s, opacity 1s linear;
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
 }
 
@@ -125,12 +132,12 @@ a:hover {
   opacity: 0;
   transition: visibility 3s, opacity 1s linear;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
 }
 
-.previousLink, nextLink {
+.previousLink, .nextLink {
   position: relative;
 }
 
@@ -152,9 +159,14 @@ a:hover {
 }
 
 /*---------------------------------featured collection---------------------------------*/
+
 .collectionImage img{
   height: 600px;
-  margin: 0px;
+  margin: 0;
+  position: relative;
+  top: -100px;
+  opacity: 0.2;
+
 }
 
 .collectionDes {
@@ -167,7 +179,6 @@ a:hover {
 }
 
 .feature1{
-  @include featured;
   background-color: rgba(16, 160, 139, 0.4);
   .collectionItem img {
     position: absolute;
@@ -176,12 +187,13 @@ a:hover {
   }
   .collectionDes {
     padding-left: 25%;
+    top: -100px;
+    opacity: 0;
   }
 
 }
 
 .feature2{
-  @include featured;
   background-color: rgba(251, 227, 115, 0.4);
   .collectionItem img {
     position: absolute;
@@ -190,12 +202,14 @@ a:hover {
     bottom: 40px;
   }
   .collectionDes {
+    position: relative;
     padding-right: 30%;
+    top: -100px;
+    opacity: 0;
   }
 }
 
 .feature3{
-  @include featured;
   background-color: rgba(69, 141, 191, 0.4);
   .collectionItem img {
     bottom: 20px;
@@ -204,12 +218,11 @@ a:hover {
     width: 250px;
   }
   .collectionDes {
-    padding-rigth: 25%;
+    padding-left: 25%;
+    top: -100px;
+    opacity: 0;
   }
 }
-
-
-
 
 
 /*---------------------------------gallery---------------------------------*/
@@ -266,14 +279,17 @@ a:hover {
   background-color: $mainColor;
   padding: $padding;
   height: $footerHeight;
+  margin-top: auto;
+  a:hover {
+  color: black;
+}
+
+
 }
 
 .footerItem {
   color: $contrastColor;
   padding-left: 20px;
   padding-right: 20px;
-  a:hover {
-    color:black;
-  }
 }
 
