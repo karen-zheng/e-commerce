@@ -72,6 +72,16 @@ app.get("/category/:category", (request,response) => {
 
 app.use(express.static("static"));
 
+// sets up a route (url pattern) that matches the format /items/itemName
+// e.g. items/a items/thing items/abcd
+app.get("/items/:itemName", (request, response) => {
+    const {itemName} = request.params; // this is where the itemName is stored
+    const item = data.find(item => item.name === itemName); // finds the item with the given name in the data array
+    response.render("itemDetail", {
+        item
+    }); // renders the given template with the item's data passed into it
+});
+
 //send data items
 app.get("/items", (request, response) => {
 

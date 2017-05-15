@@ -1,0 +1,27 @@
+{% extends "index.njk" %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" id="itemImage">
+                <img src="{{item.image}}">
+            </div>
+            <div class="col-md-6" id="itemDescription">
+                <h4 class="itemName">{{ item.name }}</h4>
+                <p>{{ item.description }}</p>
+                <p class="price">{{ item.price }}</p>
+                <button>Add to cart</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+//  Format price
+    <script>
+        var price = $(".price");
+        var formatPrice = parseInt(price.text()).toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });
+        price.html(formatPrice);
+    </script>
+{% endblock %}

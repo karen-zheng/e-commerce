@@ -21,7 +21,7 @@
     <div class="logo">
         <a href="/"><h1>project</h1> </a>
     </div>
-    <div class="menu">
+    <div class="menu" id="menu">
         <div class="leftMenu">
             <div class="menuItem">
                 <a href=""> Collection </a>
@@ -69,24 +69,22 @@
 
     <script>
         //sticky menu
+        // only one scroll listener
         window.addEventListener("scroll", scrollingdown);
+        // calculate menu height once
+        var menu = $('#menu');
+        var targetPos = menu.offset().top;
 
         function scrollingdown() {
+            var scrollPos = window.scrollY;
 
-            const targetPos = $(".menu").offset().top;
-
-            $(window).scroll(function () {
-                var scrollPos = $(this).scrollTop();
-
-                if (scrollPos > targetPos) {
-                    $(".menu").addClass("stickyMenu").removeClass("menu");
-                    $(".heroImage").css("margin-top", "80px");
-                } else {
-
-                    $(".stickyMenu").removeClass("stickyMenu").addClass("menu");
-                    $(".heroImage").css("margin-top", "0px");
-                }
-            });
+            if (scrollPos > targetPos) {
+                menu.addClass("stickyMenu").removeClass("menu");
+                $(".logo").css("margin-bottom", "80px");
+            } else {
+                menu.removeClass("stickyMenu").addClass("menu");
+                $(".logo").css("margin-bottom", "0px");
+            }
 
         }
     </script>
