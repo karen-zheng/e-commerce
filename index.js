@@ -82,9 +82,21 @@ app.get("/items/:itemName", (request, response) => {
     }); // renders the given template with the item's data passed into it
 });
 
-//send data items
-app.get("/items", (request, response) => {
+app.get("/cart/:cartItem", (request, response) => {
+   const {cartItem} = request.params;
+   const item = data.find(item => item.name === cartItem);
+   response.render("cart", {
+      item
+   });
+});
 
+//send data items
+app.get("/checkout/:checkout", (request, response) => {
+    const {checkoutItem} = request.params;
+    const item = data.find(item => item.name === checkoutItem);
+    response.render("checkout", {
+        item
+    });
 });
 
 //send categories

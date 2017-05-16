@@ -291,6 +291,19 @@ a:hover {
   min-height: 200px;
 }
 
+/*------------------------------- cart -----------------------------------*/
+ th {
+   border-bottom: solid 2px black;
+   padding: 3px;
+ }
+
+ td {
+   border-bottom: solid 1px $mainColor;
+   padding: 3px;
+ }
+
+
+
 /*------------------------------- footer ---------------------------------*/
 
 .footer {

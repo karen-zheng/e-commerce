@@ -1,0 +1,52 @@
+{% extends "index.njk" %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Unit price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td class="unitPrice">{{ item.price }}</td>
+                        <td><input type="number"></td>
+                        <td class="subtotal"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-5" id="itemDescription">
+                <p>This is the subtotal, shipping and total amount</p>
+                <a href="/checkout/{{item.name}}">
+                    <button>Proceed to Checkout</button>
+                </a>
+                <button>Shop some more</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block script %}
+
+    <script>
+        $("input").on("change", function() {
+            var unitPrice = $(".unitPrice").text();
+            var quantity = $("input").val();
+            var subtotal = $(".subtotal");
+            var calc = formatCurrency(parseInt(unitPrice) * parseInt(quantity));
+            subtotal.html(calc);
+            console.log(calc);
+        });
+
+    </script>
+
+{% endblock %}

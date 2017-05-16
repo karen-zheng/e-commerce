@@ -87,6 +87,14 @@
             }
 
         }
+
+        // format currency
+        function formatCurrency (amount) {
+            const formatted = amount.toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });
+            return formatted
+
+        }
+
     </script>
     {%block script%}{%endblock%}
 

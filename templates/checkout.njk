@@ -1,0 +1,63 @@
+{% extends "index.njk" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" id="billingInformation">
+            <p>first name <input class="firstName"></p>
+            <p>last name <input class="lastName"></p>
+            <p>company name <input class="company"></p>
+            <p>email address <input class="email"></p>
+            <p>street address <input class="streetAddress"></p>
+            <p>suburb <input class="suburb"></p>
+            <p>city <input class="city"></p>
+            <p>country <input class="country"></p>
+            <p>create account <input class="createAccount" type="radio" name="create account" value="create account"></p>
+            <p>guest account <input class="guestAccount" type="radio" name="guest account" value="guest account"></p>
+        </div>
+        <div class="col-md-6" id="itemDescription">
+            <p>{{item.name}}</p>
+            <button class="proceed">Proceed with payment</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+
+    <script>
+        function orderAccount() {
+            this.firstName;
+            this.lastName;
+            this.company;
+            this.email;
+            this.streetAddress;
+            this.suburb;
+            this.city;
+            this.country;
+        }
+
+        $(".proceed").on("click", function () {
+
+            var orderInstance = new orderAccount();
+            orderInstance.firstName = $(".firstName").val();
+            orderInstance.lastName = $(".lastName").val();
+            orderInstance.company = $(".company").val();
+            orderInstance.email = $(".email").val();
+            orderInstance.streetAddress = $(".streetAddress").val();
+            orderInstance.suburb = $(".suburb").val();
+            orderInstance.city = $(".city").val();
+            orderInstance.country = $(".country").val();
+
+            var stringOrder = JSON.stringify(orderInstance);
+            console.log(stringOrder);
+        });
+
+
+
+
+    </script>
+
+{% endblock %}
