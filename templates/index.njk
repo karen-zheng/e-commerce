@@ -16,6 +16,7 @@
      </script>-->
     <link rel="stylesheet" href="/main.css"/>
     <link href="https://fonts.googleapis.com/css?family=Lora|Muli" rel="stylesheet">
+    <script src="https://use.fontawesome.com/d03e387cdb.js"></script>
 </head>
 <body>
     <div class="logo">
@@ -43,7 +44,8 @@
 
         <div class="rightMenu">
             <div class="menuCart">
-                <a href=""> Cart </a>
+                <a class="cartButtom" href="/cart"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                <p class="cartItem">{{cart.itemCount}}</p>
             </div>
         </div>
     </div>
@@ -62,6 +64,7 @@
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.js"></script>
     <script
         src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
@@ -85,14 +88,12 @@
                 menu.removeClass("stickyMenu").addClass("menu");
                 $(".logo").css("margin-bottom", "0px");
             }
-
         }
 
         // format currency
         function formatCurrency (amount) {
-            const formatted = amount.toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });
-            return formatted
-
+            var formatted = amount.toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });
+            return formatted;
         }
 
     </script>

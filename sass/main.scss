@@ -302,6 +302,21 @@ a:hover {
    padding: 3px;
  }
 
+/*------------------------------- payment popup ---------------------------------*/
+.popup {
+  visibility: hidden;
+}
+
+.showPopup {
+  visibility: visible;
+  display: flex;
+  position: absolute;
+  top: 40%;
+  left: 30%
+  width: 40%;
+  height: 20%;
+  background-color: white;
+}
 
 
 /*------------------------------- footer ---------------------------------*/

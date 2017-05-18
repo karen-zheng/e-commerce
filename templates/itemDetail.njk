@@ -10,9 +10,10 @@
                 <h4 class="itemName">{{ item.name }}</h4>
                 <p>{{ item.description }}</p>
                 <p class="price">{{ item.price }}</p>
-                <a href="/cart/{{item.name}}">
-                    <button>Add to cart</button>
-                </a>
+                <!--<a href="/cart/{{item.name}}">
+
+                </a>-->
+                <button id="addItem">Add to cart</button>
             </div>
         </div>
     </div>
@@ -25,5 +26,25 @@
         var price = $(".price");
         var formatPrice = formatCurrency(parseInt(price.text()));
         price.html(formatPrice);
+
+
+        $("#addItem").on("click", function() {
+            var cartId = Cookies.get("cartId");
+            //var cartItemData = {"name": "{{item.name}}", "quantity" :  null };
+
+            $.post("/cart", { //post to route "/cart"
+                item: "{{ item.name }}", //posts item name;
+            }, function (data) { //success response from server
+                if (data.cartId !== cartId) { //if there isn't already a cartID then,
+                    //localStorage.setItem("cartId", data.cartId); //save cartId as key name and data.cartId as value
+                    Cookies.set("cartId", data.cartId);
+                }
+                var cartItemCurr = parseInt($(".cartItem").html());
+                $(".cartItem").html(cartItemCurr + 1);
+            });
+        });
+
+
+
     </script>
 {% endblock %}

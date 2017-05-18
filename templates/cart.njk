@@ -1,6 +1,7 @@
 {% extends "index.njk" %}
 
 {% block body %}
+<form action="/checkout" method="post" >
     <div class="container">
         <div class="row">
             <div class="col-md-7">
@@ -12,25 +13,25 @@
                         <th>Quantity</th>
                         <th>Subtotal</th>
                     </tr>
+                    {% for item in cart.items %}
                     <tr>
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
-                        <td class="unitPrice">{{ item.price }}</td>
-                        <td><input type="number"></td>
+                        <td class="{{ item.name }}" id="unitPrice">{{ item.price }}</td>
+                        <td><input class="{{ item.name }}" name="{{ item.name }}" type="number" min="0" value="{{ item.quantity }}"></td>
                         <td class="subtotal"></td>
                     </tr>
+                    {% endfor %}
                 </table>
             </div>
             <div class="col-md-5" id="itemDescription">
                 <p>This is the subtotal, shipping and total amount</p>
-                <a href="/checkout/{{item.name}}">
-                    <button>Proceed to Checkout</button>
-                </a>
+                <button type="submit">Proceed to Checkout</button>
                 <button>Shop some more</button>
             </div>
         </div>
     </div>
-
+</form>
 {% endblock %}
 
 
@@ -38,14 +39,32 @@
 {% block script %}
 
     <script>
-        $("input").on("change", function() {
-            var unitPrice = $(".unitPrice").text();
-            var quantity = $("input").val();
-            var subtotal = $(".subtotal");
-            var calc = formatCurrency(parseInt(unitPrice) * parseInt(quantity));
-            subtotal.html(calc);
-            console.log(calc);
+
+        updateSubtotal();
+        var inputs = $("input");
+
+        inputs.on("change", function(e) {
+
+            updateSubtotal();
+
+            $.post("/cart", { //first argument is the route
+                item: e.target.name, //second argument is the data to post to server
+                quantity: e.target.value
+            }, function(data) { //third argument is a call back that gives the data retrieved from the server
+                var totalCartItems = data.items.reduce((previous, current) => previous + current.quantity, 0);
+                $(".cartItem").html(totalCartItems);
+            })
+
+
         });
+
+        function updateSubtotal() {
+            var unitPrice = $("#unitPrice").text();
+            var cartQuantity = $("input").val();
+            var subtotal = $(".subtotal");
+            var calc = formatCurrency(parseInt(cartQuantity) * parseInt(unitPrice));
+            subtotal.html(calc);
+        }
 
     </script>
 

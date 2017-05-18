@@ -4,8 +4,39 @@ const express = require("express");
 const expressNunjucks = require('express-nunjucks');
 //constructor for express server
 const app = express();
+// we need this to enable express to handle POST requests
+const bodyParser = require('body-parser');
+// we need this to be able to read cookies
+const cookieParser = require('cookie-parser');
 // use data.js
 const data = require("./data");
+const uuidV4 = require('uuid/v4');
+// to store a cart per session to a cart database
+const carts = {};
+
+// boilerplate copypasta enabling express to handle POST requests
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+//middle ware for cart so each route doesn't have to request cart
+app.use(function(req, res, next){
+    const emptyCart = {itemCount: 0, items: []};
+
+    if(req.cookies) {
+        const {cartId} = req.cookies; //stores cookies using cookieParser
+        if(cartId && carts[cartId]) {
+            //reduce iterates over an array and adds each number together. The last argument 0 is the initial value
+            const itemCount = carts[cartId].reduce((previous, current) => previous + current.quantity, 0);
+            req.cart = {itemCount, items: carts[cartId]};
+        } else {
+            req.cart = emptyCart;
+        }
+    } else {
+        req.cart = emptyCart;
+    }
+
+    next();
+});
 
 function getUniqueGroups (groups) {
     const group = [];
@@ -44,7 +75,9 @@ const collections = getUniqueGroups("collection");
 //send index page
 app.get("/", (request,response) => {
     response.render('home', {
-        categories, collections
+        categories,
+        collections,
+        cart: request.cart
     });
 });
 
@@ -54,9 +87,103 @@ app.get("/collection/:collection", (request,response) => {
     response.render("results", {
         categories,
         collections,
-        items
+        items,
+        cart: request.cart
     });
+});
 
+app.post("/cart", (request, response) => {
+    let {item, quantity} = request.body; //request.body contains data from user browser.
+    let {cartId} = request.cookies; //gets the cartId from cookie
+    const itemData = data.find(dataItem => dataItem.name === item);
+
+    if (carts[cartId]) { //checks for existing shopping cart
+        const existingItem = carts[cartId].find(cartItem => cartItem.name === item); // finds matching items already in shopping cart
+
+        if (existingItem) {
+            if(quantity == null) {
+                existingItem.quantity++;
+            } else {
+                existingItem.quantity = parseInt(quantity);
+            }
+        } else {
+            carts[cartId].push(Object.assign({quantity: 1}, itemData));  //adds new item, initialised to one. in Object.assign the left argument
+            // should be a new object the right argument get copied and merged into the left argument. The right argument can be an existing object that
+            //doesn't need to be changed
+            console.log("new item created");
+        }
+    } else {
+        // create a new shopping cart
+        cartId = uuidV4(); //creates a unique id in cartID
+        carts[cartId] = [Object.assign({quantity: 1}, itemData)] //A cartId entry is created in the carts Database,
+        // with the name of an item and quantity. Initialised to one.
+    }
+
+    response.send({cartId, items: carts[cartId]}); // send cart id and also the items existing in the cart
+});
+
+app.post("/checkout", (request, response) => {
+    let {item} = request.body;
+    let {quantity} = request.body;
+    let {cartId} = request.cookies;
+    const itemData = data.find(dataItem => dataItem.name === item);
+
+    if (carts[cartId]) { //checks for existing shopping cart
+        const existingItem = carts[cartId].find(cartItem => cartItem.name === item); // finds matching items already in shopping cart
+        var itemQuantity = quantityCheck();
+
+        function quantityCheck () {
+            if (quantity === "0") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        if (existingItem && !itemQuantity) {
+            //increases quantity of existing items
+            existingItem.quantity++;
+            console.log("item added from details page");
+        } else {
+            carts[cartId].push(Object.assign({quantity: 1}, itemData));  //adds new item, initialised to one. in Object.assign the left argument
+            // should be a new object the right argument get copied and merged into the left argument. The right argument can be an existing object that
+            //doesn't need to be changed
+            console.log("new item created");
+        }
+    } else {
+        // create a new shopping cart
+        cartId = uuidV4(); //creates a unique id in cartID
+        carts[cartId] = [Object.assign({quantity: 1}, itemData)] //A cartId entry is created in the carts Database,
+        // with the name of an item and quantity. Initialised to one.
+    }
+
+    response.send({cartId, items: carts[cartId]});
+
+    existingItem.quantity = quantity;
+    console.log("cart quantity changed");
+    console.log(existingItem.name + existingItem.quantity);
+
+
+    response.render("checkout", {
+        categories,
+        collections,
+        cart: request.cart
+    }); // TODO: render a template
+});
+
+app.post("/payment", (request, response) => {
+    const {orderInfo} = request.body;
+    response.send("success");
+});
+
+app.get("/cart", (request, response) => {
+    response.render("cart", {
+        categories,
+        collections,
+        cart: request.cart,
+        cartItemJson: JSON.stringify(request.cart.items)
+    });
 });
 
 app.get("/category/:category", (request,response) => {
@@ -65,12 +192,10 @@ app.get("/category/:category", (request,response) => {
     response.render("results", {
         categories,
         collections,
-        items
+        items,
+        cart: request.cart
     });
-
 });
-
-app.use(express.static("static"));
 
 // sets up a route (url pattern) that matches the format /items/itemName
 // e.g. items/a items/thing items/abcd
@@ -78,31 +203,19 @@ app.get("/items/:itemName", (request, response) => {
     const {itemName} = request.params; // this is where the itemName is stored
     const item = data.find(item => item.name === itemName); // finds the item with the given name in the data array
     response.render("itemDetail", {
-        item
+        item,
+        categories,
+        collections,
+        cart: request.cart
     }); // renders the given template with the item's data passed into it
-});
-
-app.get("/cart/:cartItem", (request, response) => {
-   const {cartItem} = request.params;
-   const item = data.find(item => item.name === cartItem);
-   response.render("cart", {
-      item
-   });
-});
-
-//send data items
-app.get("/checkout/:checkout", (request, response) => {
-    const {checkoutItem} = request.params;
-    const item = data.find(item => item.name === checkoutItem);
-    response.render("checkout", {
-        item
-    });
 });
 
 //send categories
 app.get("/categories", (request, response)=>{
     response.send(categories);
 });
+
+app.use(express.static("static"));
 
 //storing templates in a particular folder
 app.set('views', __dirname + '/templates');
@@ -112,7 +225,6 @@ expressNunjucks(app, {
     watch: true,
     noCache: true
 });
-
 
 //creating a port - setting to listen
 app.listen(9000,() => {
