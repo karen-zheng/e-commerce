@@ -1,4 +1,4 @@
-$mainColor: #8283b7;
+$mainColor: #a6a3d6;
 $contrastColor: #ffffff;
 $padding: 0.5rem;
 $menuHeight: 5rem;
@@ -293,14 +293,26 @@ a:hover {
 
 /*------------------------------- cart -----------------------------------*/
  th {
+   white-space: nowrap;
    border-bottom: solid 2px black;
-   padding: 3px;
  }
 
  td {
    border-bottom: solid 1px $mainColor;
-   padding: 3px;
  }
+
+ .table {
+   margin-top: 40px;
+   min-height: 300px;
+ }
+
+ .orderSummary {
+   background-color: #e3e5ff;
+   border-radius: 10px;
+ }
+/*------------------------------- checkout ---------------------------------*/
+
+
 
 /*------------------------------- payment popup ---------------------------------*/
 .popup {
@@ -312,7 +324,7 @@ a:hover {
   display: flex;
   position: absolute;
   top: 40%;
-  left: 30%
+  left: 30%;
   width: 40%;
   height: 20%;
   background-color: white;

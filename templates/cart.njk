@@ -1,15 +1,15 @@
 {% extends "index.njk" %}
 
 {% block body %}
-<form action="/checkout" method="post" >
+<form action="/checkout" method="post">
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-7 table">
                 <table>
                     <tr>
                         <th>Product</th>
                         <th>Description</th>
-                        <th>Unit price</th>
+                        <th class="unitPrice">Unit price</th>
                         <th>Quantity</th>
                         <th>Price</th>
                     </tr>
@@ -18,16 +18,17 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td class="{{ item.name }}">{{ item.price }}</td>
-                        <td><input class="{{ item.name }}" name="{{ item.name }}" data-price="{{item.price}}" type="number" min="0" value="{{ item.quantity }}"></td>
+                        <td><input name="item" item="{{ item.name }}" data-price="{{item.price}}" type="number" style="width: 60px" min="0" value="{{ item.quantity }}"></td>
                         <td class="price"></td>
                     </tr>
                     {% endfor %}
                 </table>
             </div>
-            <div class="col-md-5" id="itemDescription">
+            <div class="col-md-5 table orderSummary">
                 <table>
                     <tr>
                         <th>Order summary</th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>Subtotal</td>
@@ -35,16 +36,15 @@
                     </tr>
                     <tr>
                         <td>Shipping</td>
-                        <td>$20.00</td>
+                        <td class="shipping"></td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>$20.00</td>
+                        <td class="total"></td>
                     </tr>
-
                 </table>
                 <p>This is the subtotal, shipping and total amount</p>
-                <button type="submit">Proceed to Checkout</button>
+                    <button type="submit">Proceed to Checkout</button>
                 <button type="button" onclick="location.href='/results'">Shop some more</button>
             </div>
         </div>
@@ -57,27 +57,27 @@
 {% block script %}
 
     <script>
-
+        const defaultShipping = 20;
+        var shipping = $(".shipping");
         var inputs = $("input");
+        var total = $(".total")
 
         $(inputs).each( function (i, input) {
                 updatePrice(input);
         });
 
+        var subtotal = $(".subtotal");
         var prices = $(".price");
-        var subtotal = 0;
-        console.log(prices);
 
-        $(prices).each( function (i, price) {
-            var amount = price.innerText;
-            var trimAmount= amount.substr(amount.indexOf("$") + 1);
-            updateSubtotal(trimAmount);
-        });
+        updateSubtotal();
 
-        // TODO: loop through inputs above (use inputs.each ) and call updateSubtotal for each input. Remember to pass
-        // the DOM element as an argument to updateSubtotal.
-        // Main goal of this is to get the totals displaying when the page loads
-        //        updateSubtotal();
+//        $(".proceed").on("click", function() {
+//            $.post("/checkout", {
+//                total: total,
+//            }, function (data) {
+//
+//            });
+//        });
 
         inputs.on("change", function(e) {
 
@@ -85,7 +85,8 @@
 
             var amount = e.target.parentElement.nextElementSibling.innerText;
             var trimAmount= amount.substr(amount.indexOf("$") + 1);
-            updateSubtotal(trimAmount);
+
+            updateSubtotal();
 
             $.post("/cart", { //first argument is the route
                 item: e.target.name, //second argument is the data to post to server
@@ -106,10 +107,32 @@
             price.html(calc);
         }
 
-        function updateSubtotal(amount) {
-            subtotal += parseInt(amount);
-            $(".subtotal").html(formatCurrency(subtotal));
+        function updateSubtotal() {
+            var subtotalPrice = 0;
+
+            $(prices).each( function (i, price) {
+                var amount = price.innerText;
+                var trimAmount= amount.substr(amount.indexOf("$") + 1);
+                subtotalPrice += parseInt(trimAmount);
+            });
+
+            subtotal.html(formatCurrency(subtotalPrice));
+
+            updateShipping(subtotalPrice);
         }
+
+        function updateShipping (subtotalPrice) {
+            if (subtotalPrice > 200) {
+                shipping.html("FREE for purchases over $200");
+                total.html(formatCurrency(subtotalPrice));
+            } else {
+                shipping.html(formatCurrency(defaultShipping));
+                total.html(formatCurrency(subtotalPrice + defaultShipping));
+            }
+        }
+
+
+
 
     </script>
 

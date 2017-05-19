@@ -133,16 +133,20 @@ app.post("/cart", (request, response) => {
 });
 
 app.post("/checkout", (request, response) => {
+    let {item} = request.body;
+
+
     response.render("checkout", {
         categories,
         collections,
         cart: request.cart
-    }); // TODO: render a template
+    });
 });
 
 app.post("/payment", (request, response) => {
-    const {orderInfo} = request.body;
-    response.send("success");
+    let {firstName,lastName, company, email, streetAddress, suburb, city, country} = request.body;
+    console.log(firstName,lastName, company, email, streetAddress, suburb, city, country);
+    response.send();
 });
 
 app.get("/cart", (request, response) => {
