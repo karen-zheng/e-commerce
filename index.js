@@ -81,6 +81,16 @@ app.get("/", (request,response) => {
     });
 });
 
+app.get("/results" , (request, response) => {
+    const items = getItems(null, null);
+    response.render("results", {
+        categories,
+        collections,
+        items,
+        cart: request.cart
+    });
+});
+
 app.get("/collection/:collection", (request,response) => {
     const {collection} = request.params;
     const items = getItems(null, collection);
@@ -123,48 +133,6 @@ app.post("/cart", (request, response) => {
 });
 
 app.post("/checkout", (request, response) => {
-    let {item} = request.body;
-    let {quantity} = request.body;
-    let {cartId} = request.cookies;
-    const itemData = data.find(dataItem => dataItem.name === item);
-
-    if (carts[cartId]) { //checks for existing shopping cart
-        const existingItem = carts[cartId].find(cartItem => cartItem.name === item); // finds matching items already in shopping cart
-        var itemQuantity = quantityCheck();
-
-        function quantityCheck () {
-            if (quantity === "0") {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-
-        if (existingItem && !itemQuantity) {
-            //increases quantity of existing items
-            existingItem.quantity++;
-            console.log("item added from details page");
-        } else {
-            carts[cartId].push(Object.assign({quantity: 1}, itemData));  //adds new item, initialised to one. in Object.assign the left argument
-            // should be a new object the right argument get copied and merged into the left argument. The right argument can be an existing object that
-            //doesn't need to be changed
-            console.log("new item created");
-        }
-    } else {
-        // create a new shopping cart
-        cartId = uuidV4(); //creates a unique id in cartID
-        carts[cartId] = [Object.assign({quantity: 1}, itemData)] //A cartId entry is created in the carts Database,
-        // with the name of an item and quantity. Initialised to one.
-    }
-
-    response.send({cartId, items: carts[cartId]});
-
-    existingItem.quantity = quantity;
-    console.log("cart quantity changed");
-    console.log(existingItem.name + existingItem.quantity);
-
-
     response.render("checkout", {
         categories,
         collections,

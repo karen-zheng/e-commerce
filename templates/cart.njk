@@ -11,23 +11,41 @@
                         <th>Description</th>
                         <th>Unit price</th>
                         <th>Quantity</th>
-                        <th>Subtotal</th>
+                        <th>Price</th>
                     </tr>
                     {% for item in cart.items %}
                     <tr>
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
-                        <td class="{{ item.name }}" id="unitPrice">{{ item.price }}</td>
-                        <td><input class="{{ item.name }}" name="{{ item.name }}" type="number" min="0" value="{{ item.quantity }}"></td>
-                        <td class="subtotal"></td>
+                        <td class="{{ item.name }}">{{ item.price }}</td>
+                        <td><input class="{{ item.name }}" name="{{ item.name }}" data-price="{{item.price}}" type="number" min="0" value="{{ item.quantity }}"></td>
+                        <td class="price"></td>
                     </tr>
                     {% endfor %}
                 </table>
             </div>
             <div class="col-md-5" id="itemDescription">
+                <table>
+                    <tr>
+                        <th>Order summary</th>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="subtotal"></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>$20.00</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>$20.00</td>
+                    </tr>
+
+                </table>
                 <p>This is the subtotal, shipping and total amount</p>
                 <button type="submit">Proceed to Checkout</button>
-                <button>Shop some more</button>
+                <button type="button" onclick="location.href='/results'">Shop some more</button>
             </div>
         </div>
     </div>
@@ -40,12 +58,34 @@
 
     <script>
 
-        updateSubtotal();
         var inputs = $("input");
+
+        $(inputs).each( function (i, input) {
+                updatePrice(input);
+        });
+
+        var prices = $(".price");
+        var subtotal = 0;
+        console.log(prices);
+
+        $(prices).each( function (i, price) {
+            var amount = price.innerText;
+            var trimAmount= amount.substr(amount.indexOf("$") + 1);
+            updateSubtotal(trimAmount);
+        });
+
+        // TODO: loop through inputs above (use inputs.each ) and call updateSubtotal for each input. Remember to pass
+        // the DOM element as an argument to updateSubtotal.
+        // Main goal of this is to get the totals displaying when the page loads
+        //        updateSubtotal();
 
         inputs.on("change", function(e) {
 
-            updateSubtotal();
+            updatePrice(e.target);
+
+            var amount = e.target.parentElement.nextElementSibling.innerText;
+            var trimAmount= amount.substr(amount.indexOf("$") + 1);
+            updateSubtotal(trimAmount);
 
             $.post("/cart", { //first argument is the route
                 item: e.target.name, //second argument is the data to post to server
@@ -58,12 +98,17 @@
 
         });
 
-        function updateSubtotal() {
-            var unitPrice = $("#unitPrice").text();
-            var cartQuantity = $("input").val();
-            var subtotal = $(".subtotal");
+        function updatePrice(input) {
+            var unitPrice = input.dataset.price;
+            var cartQuantity = input.value;
+            var price = $(input).parent().next();
             var calc = formatCurrency(parseInt(cartQuantity) * parseInt(unitPrice));
-            subtotal.html(calc);
+            price.html(calc);
+        }
+
+        function updateSubtotal(amount) {
+            subtotal += parseInt(amount);
+            $(".subtotal").html(formatCurrency(subtotal));
         }
 
     </script>
