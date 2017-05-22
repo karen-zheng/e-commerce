@@ -1,0 +1,159 @@
+{% extends "index.njk" %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-7 table" >
+                <div class="showPopup" data-result = "{{paymentResult}}">
+                <p>Payment successful. Thank you for shopping with us.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>First Name: </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{firstName}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Surname: </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{lastName}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Company Name:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{company}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Email:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{email}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Street Address:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{streetAddress}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Suburb:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{suburb}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>City:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{city}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Country:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{country}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 table">
+                <table>
+                    <tr>
+                        <th>Order summary</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="subtotal"></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td class="shipping"></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td class="total"></td>
+                    </tr>
+                </table>
+                <p>Proceed with Paypal</p>
+                <div id="paypal-button"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    var cartTotal = {{total}};
+    var subtotal = $(".subtotal");
+    var shipping = $(".shipping");
+    var total = $(".total");
+
+    var inputs = $("input");
+
+    subtotal.html(formatCurrency(cartTotal));
+
+    if(cartTotal > 200) {
+        shipping.html("Free for orders over $200");
+    } else {
+        shipping.html(formatCurrency(20));
+    }
+
+    var trimSubtotal  = subtotal.html().substr(subtotal.html().indexOf("$") + 1);
+    var trimShipping = shipping.html().substr(shipping.html().indexOf("$") + 1);
+    var calc = parseInt(trimSubtotal) + parseInt(trimShipping);
+    total.html(formatCurrency(calc));
+
+    //paypal button
+    paypal.Button.render({
+        env: 'sandbox',
+        client: {
+            sandbox:    'AXJVO5r9QWFH1GLsEfbldQoPoaNLCsFYINaDo42cmqhONdl41gBqqlUY7sYbLda0hHeKNdyrGGpgNt9z',
+            production: '<insert production client id>'
+        },
+        commit: true, // Show a 'Pay Now' button
+        payment: function(actions) {
+            return actions.payment.create({
+                transactions: [
+                    {
+                        amount: { total: calc, currency: 'NZD' }
+                    }
+                ]
+            });
+        },
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function(payment) {
+                document.cookie = " cartId" + "=; expires=Thu, 01-Jan-70 00:00:01 GMT;";
+                var payment = $(".showPopup");
+                    payment.addClass("active");
+                    setInterval(revert, 6000);
+                    function revert () {
+                        $(".showPopup").removeClass("active");
+                    }
+            });
+        }
+    }, '#paypal-button');
+
+</script>
+
+{% endblock %}

@@ -74,7 +74,7 @@ const collections = getUniqueGroups("collection");
 
 //send index page
 app.get("/", (request,response) => {
-    let paymentResult = 20;
+    let paymentResult = "incomplete";
     response.render('home', {
         categories,
         collections,
@@ -84,7 +84,7 @@ app.get("/", (request,response) => {
 });
 
 app.get("/home", (request,response) => {
-    let paymentResult = 20;
+    let paymentResult = "incomplete";
     response.render('home', {
         categories,
         collections,
@@ -180,11 +180,30 @@ app.post("/checkout", (request, response) => {
 
 app.post("/payment", (request, response) => {
     let {firstName,lastName, company, email, streetAddress, suburb, city, country} = request.body;
-    console.log(firstName,lastName, company, email, streetAddress, suburb, city, country);
-    let paymentResult = 1;
-    response.render("home", {
+    const {cartId} = request.cookies;
+    const cart = carts[cartId];
+    const total = cart.reduce((previous, current) => {
+        return previous + (current.price * current.quantity);
+    },0);
+
+    response.render("payment", {
         categories,
         collections,
+        total,
+        firstName,
+        lastName,
+        company,
+        email,
+        streetAddress,
+        suburb,
+        city,
+        country
+    });
+});
+
+app.post("/paymentComplete", (request, response) => {
+    const paymentResult = "complete";
+    response.render("home", {
         paymentResult
     });
 });

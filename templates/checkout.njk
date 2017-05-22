@@ -92,7 +92,7 @@
                         <td class="total"></td>
                     </tr>
                 </table>
-                <button class="proceed" type="submit">Proceed with payment</button>
+                <button class="btn" class="proceed" type="submit">Proceed with payment</button>
             </div>
         </div>
     </div>
@@ -104,20 +104,6 @@
 {% block script %}
 
     <script>
-
-//        var message = $(".showPopup");
-//        pMessage = message.data("result");
-//           if(pMessage === "Form incomplete"){
-//            message.addClass("active");
-//            $(".message").html(pMessage);
-//            setInterval(revert, 3000);
-//            function revert () {
-//                $(".showPopup").removeClass("active");
-//            }
-//        } else {
-//            message.css("display", "none");
-//        }
-
         var cartTotal = {{total}};
         var subtotal = $(".subtotal");
         var shipping = $(".shipping");
@@ -135,11 +121,6 @@
         var trimShipping = shipping.html().substr(shipping.html().indexOf("$") + 1);
         var calc = parseInt(trimSubtotal) + parseInt(trimShipping);
         total.html(formatCurrency(calc));
-
-        $(".proceed").on("click", function () {
-            document.cookie = " cartId" + "=; expires=Thu, 01-Jan-70 00:00:01 GMT;";
-        });
-
     </script>
 
 {% endblock %}
