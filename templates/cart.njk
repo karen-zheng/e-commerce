@@ -6,6 +6,9 @@
         <div class="row">
             <div class="col-md-7 table">
                 <table>
+                    <div class="showPopup" data-result = "{{message}}">
+                        <p class="message"></p>
+                    </div>
                     <tr>
                         <th>Product</th>
                         <th>Description</th>
@@ -18,7 +21,7 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td class="{{ item.name }}">{{ item.price }}</td>
-                        <td><input name="item" item="{{ item.name }}" data-price="{{item.price}}" type="number" style="width: 60px" min="0" value="{{ item.quantity }}"></td>
+                        <td><input name="{{ item.name }}" data-price="{{item.price}}" type="number" style="width: 60px" min="0" value="{{ item.quantity }}"></td>
                         <td class="price"></td>
                     </tr>
                     {% endfor %}
@@ -57,6 +60,20 @@
 {% block script %}
 
     <script>
+        var message = $(".showPopup");
+        pMessage = message.data("result");
+        if(pMessage === "your cart is empty"){
+            message.addClass("active");
+            $(".message").html(pMessage);
+            setInterval(revert, 3000);
+            function revert () {
+                $(".showPopup").removeClass("active");
+            }
+
+        } else {
+            message.css("display", "none");
+        }
+
         const defaultShipping = 20;
         var shipping = $(".shipping");
         var inputs = $("input");
@@ -70,14 +87,6 @@
         var prices = $(".price");
 
         updateSubtotal();
-
-//        $(".proceed").on("click", function() {
-//            $.post("/checkout", {
-//                total: total,
-//            }, function (data) {
-//
-//            });
-//        });
 
         inputs.on("change", function(e) {
 

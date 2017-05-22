@@ -74,10 +74,22 @@ const collections = getUniqueGroups("collection");
 
 //send index page
 app.get("/", (request,response) => {
+    let paymentResult = 20;
     response.render('home', {
         categories,
         collections,
-        cart: request.cart
+        cart: request.cart,
+        paymentResult
+    });
+});
+
+app.get("/home", (request,response) => {
+    let paymentResult = 20;
+    response.render('home', {
+        categories,
+        collections,
+        cart: request.cart,
+        paymentResult
     });
 });
 
@@ -133,20 +145,48 @@ app.post("/cart", (request, response) => {
 });
 
 app.post("/checkout", (request, response) => {
-    let {item} = request.body;
+    const {cartId} = request.cookies;
+    const cart = carts[cartId];
+    const message = "your cart is empty";
 
-
-    response.render("checkout", {
-        categories,
-        collections,
-        cart: request.cart
-    });
+    if(cart == undefined){
+        response.render("cart", {
+            categories,
+            collections,
+            cart: request.cart,
+            message
+        });
+    } else {
+        const total = cart.reduce((previous, current) => {
+            return previous + (current.price * current.quantity);
+        },0);
+        if (total == 0){
+            response.render("cart", {
+                categories,
+                collections,
+                cart: request.cart,
+                message
+            });
+        } else {
+                response.render("checkout", {
+                    categories,
+                    collections,
+                    cart: request.cart,
+                    total
+                });
+            }
+    }
 });
 
 app.post("/payment", (request, response) => {
     let {firstName,lastName, company, email, streetAddress, suburb, city, country} = request.body;
     console.log(firstName,lastName, company, email, streetAddress, suburb, city, country);
-    response.send();
+    let paymentResult = 1;
+    response.render("home", {
+        categories,
+        collections,
+        paymentResult
+    });
 });
 
 app.get("/cart", (request, response) => {
