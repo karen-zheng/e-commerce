@@ -49,21 +49,18 @@ function getUniqueGroups (groups) {
 }
 
 function getItems(category, collection){
-
     if (!category && !collection) {
         return data;
     }
 
     //data.filter returns an array
-    const results = data.filter(item => {
+    return data.filter(item => {
         if(category && collection) {
             return item.category === category && item.collection === collection;
         }
 
         return (category && item.category === category) || (collection && item.collection === collection);
     });
-
-    return results;
 }
 
 //load unique categories on load

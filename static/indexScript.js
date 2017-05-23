@@ -16,6 +16,35 @@ function scrollingdown() {
     }
 }
 
+// show menu
+var menuItems = $(".menuItem");
+
+var supportsTouchEvents = false;
+
+try{
+    document.createEvent("TouchEvent");
+    supportsTouchEvents = true;
+} catch (e){
+    //do nothing
+}
+
+if(supportsTouchEvents){
+    menuItems.on("click", function(e) {
+        $(this).children('ul').toggleClass("showMenuItem");
+        e.preventDefault();
+    });
+} else {
+    menuItems.on("mouseover", function(e) {
+        $(this).children('ul').addClass("showMenuItem");
+        e.preventDefault();
+    });
+
+    menuItems.on("mouseleave", function(e) {
+        $(this).children('ul').removeClass("showMenuItem");
+        e.preventDefault();
+    });
+}
+
 // format currency
 function formatCurrency (amount) {
     var formatted = amount.toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });

@@ -35,7 +35,7 @@
         <div class="menu" id="menu">
             <div class="leftMenu">
                 <div class="menuItem">
-                    <a href=""> Collection </a>
+                    <button id="menuCollection"> Collection </button>
                     <ul class="hiddenCollectionMenu">
                         {% for collection in collections %}
                         <li><a href="/collection/{{collection}}">{{ collection }}</a></li>
@@ -43,7 +43,7 @@
                     </ul>
                 </div>
                 <div class="menuItem">
-                    <a  href=""> Category </a>
+                    <button id="menuCategory"> Category </button>
                     <ul class="hiddenCategoryMenu">
                         {% for category in categories %}
                         <li><a href="/category/{{category}}">{{ category }}</a></li>
