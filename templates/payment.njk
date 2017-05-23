@@ -100,8 +100,10 @@
 
 {% endblock %}
 
-
 {% block script %}
-<script src="checkoutScript.js"></script>
-<script src="paymentScript.js"></script>
+    <script>
+        var cartTotal = {{total}};
+    </script>
+    <script src="/checkoutScript.js"></script>
+    <script src="/paymentScript.js"></script>
 {% endblock %}

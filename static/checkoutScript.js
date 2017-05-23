@@ -1,5 +1,4 @@
 //order summary
-var cartTotal = {{total}};
 var subtotal = $(".subtotal");
 var shipping = $(".shipping");
 var total = $(".total");

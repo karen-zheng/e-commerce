@@ -1,63 +1,60 @@
 {% extends "index.njk" %}
 
 {% block body %}
-<div class="showPopup" data-result = "{{message}}">
-    <p class="message"></p>
-</div>
-<form action="/checkout" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7 table">
-                <table>
-                    <tr>
-
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th class="unitPrice">Unit price</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                    {% for item in cart.items %}
-                    <tr>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.description }}</td>
-                        <td class="{{ item.name }}">{{ item.price }}</td>
-                        <td><input name="{{ item.name }}" data-price="{{item.price}}" type="number" style="width: 60px" min="0" value="{{ item.quantity }}"></td>
-                        <td class="price"></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            <div class="col-md-5 table orderSummary">
-                <table>
-                    <tr>
-                        <th>Order summary</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td class="subtotal"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping</td>
-                        <td class="shipping"></td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td class="total"></td>
-                    </tr>
-                </table>
-                <p>This is the subtotal, shipping and total amount</p>
-                <button class="btn" type="submit">Proceed to Checkout</button>
-                <button class="btn" type="button" onclick="location.href='/results'">Shop some more</button>
+    <div class="showPopup" data-result = "{{message}}">
+        <p class="message"></p>
+    </div>
+    <form action="/checkout" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 table">
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Description</th>
+                            <th class="unitPrice">Unit price</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for item in cart.items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td class="{{ item.name }}">{{ item.price }}</td>
+                            <td><input name="{{ item.name }}" data-price="{{item.price}}" type="number" style="width: 60px" min="0" value="{{ item.quantity }}"></td>
+                            <td class="price"></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="col-md-5 table orderSummary">
+                    <table>
+                        <tr>
+                            <th>Order summary</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td class="subtotal"></td>
+                        </tr>
+                        <tr>
+                            <td>Shipping</td>
+                            <td class="shipping"></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td class="total"></td>
+                        </tr>
+                    </table>
+                    <p>This is the subtotal, shipping and total amount</p>
+                    <button class="btn" type="submit">Proceed to Checkout</button>
+                    <button class="btn" type="button" onclick="location.href='/results'">Shop some more</button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 {% endblock %}
 
-
-
 {% block script %}
-    <script src="cartScript.js"></script>
+    <script src="/cartScript.js"></script>
 {% endblock %}

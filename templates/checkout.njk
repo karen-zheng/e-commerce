@@ -1,106 +1,107 @@
 {% extends "index.njk" %}
 
 {% block body %}
-<form action="/payment" method="post" >
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7 table" >
-                <div class="showPopup" data-result = "{{message}}">
-                    <p class="message"></p>
+    <form action="/payment" method="post" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 table" >
+                    <div class="showPopup" data-result = "{{message}}">
+                        <p class="message"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>first name</p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="firstName" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>last name </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="lastName" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>company name </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="company" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>email address </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="email" type="email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>street address </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="streetAddress" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>suburb </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="suburb" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>city </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="city" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>country </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="country" type="text" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>first name</p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="firstName" type="text" required>
-                    </div>
+                <div class="col-md-5 table">
+                    <table>
+                        <tr>
+                            <th>Order summary</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td class="subtotal"></td>
+                        </tr>
+                        <tr>
+                            <td>Shipping</td>
+                            <td class="shipping"></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td class="total"></td>
+                        </tr>
+                    </table>
+                    <button class="btn" class="proceed" type="submit">Proceed with payment</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>last name </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="lastName" type="text" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>company name </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="company" type="text">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>email address </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="email" type="email" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>street address </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="streetAddress" type="text" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>suburb </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="suburb" type="text" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>city </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="city" type="text" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>country </p>
-                    </div>
-                    <div class="col-md-4">
-                        <input name="country" type="text" required>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 table">
-                <table>
-                    <tr>
-                        <th>Order summary</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td class="subtotal"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping</td>
-                        <td class="shipping"></td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td class="total"></td>
-                    </tr>
-                </table>
-                <button class="btn" class="proceed" type="submit">Proceed with payment</button>
             </div>
         </div>
-    </div>
-</form>
-
+    </form>
 {% endblock %}
 
-
 {% block script %}
-<script src="checkoutScript.js"></script>
+    <script>
+        var cartTotal = {{total}};
+    </script>
+    <script src="/checkoutScript.js"></script>
 {% endblock %}
