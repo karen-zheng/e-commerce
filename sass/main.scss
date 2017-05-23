@@ -169,7 +169,6 @@ a:hover {
   position: relative;
   top: -100px;
   opacity: 0.2;
-
 }
 
 .collectionDes {
@@ -243,7 +242,7 @@ a:hover {
   font-style: italic;
   text-align: center;
   h1{
-    font-family: "Lora";
+    font-family: Lora;
   }
 }
 
@@ -312,7 +311,7 @@ a:hover {
  }
 
 .btn{
-   margin: 10px;
+  margin: 10px;
   background-color: $contrastColor;
   color: $mainColor;
   font-family: Muli;
@@ -362,7 +361,7 @@ a:hover {
   bottom: 0;
   margin-top: 10%;
   a:hover {
-  color: black;
+    color: black;
   }
 }
 
