@@ -104,13 +104,6 @@ a:hover {
   list-style: none;
 }
 
-//.menuItem:hover .hiddenCategoryMenu, .menuItem:hover .hiddenCollectionMenu {
-//  visibility: visible;
-//  opacity: 1;
-//  z-index: 10;
-//  box-shadow: $shadow;
-//}
-
 .showMenuItem {
   visibility: visible;
   opacity: 1;
@@ -341,12 +334,12 @@ a:hover {
 
  .table {
    margin-top: 40px;
-   min-height: 300px;
  }
 
  .orderSummary {
    background-color: #e3e5ff;
    border-radius: 10px;
+   min-height: 45vh;
  }
 
 .btn{
@@ -365,7 +358,7 @@ a:hover {
   margin: 10px;
 }
 
-/*--------------------------------- checkout ------------------------------------*/
+/*------------------------------ checkout ---------------------------------*/
 
 input {
   border: 1px solid #bfbfbf;
@@ -373,7 +366,7 @@ input {
 
 
 
-/*------------------------------- payment popup ---------------------------------*/
+/*---------------------------- payment popup ------------------------------*/
 .showPopup.active {
   visibility: visible;
   opacity: 1;

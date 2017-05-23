@@ -1,4 +1,4 @@
-// only one scroll listener
+//scroll listener
 window.addEventListener("scroll", scrollingdown);
 // calculate menu height once
 var menu = $('#menu');
@@ -31,19 +31,17 @@ try{
 if(supportsTouchEvents){
     menuItems.on("click", function(e) {
         $(this).children('ul').toggleClass("showMenuItem");
-        e.preventDefault();
     });
 } else {
     menuItems.on("mouseover", function(e) {
         $(this).children('ul').addClass("showMenuItem");
-        e.preventDefault();
     });
 
     menuItems.on("mouseleave", function(e) {
         $(this).children('ul').removeClass("showMenuItem");
-        e.preventDefault();
     });
 }
+
 
 // format currency
 function formatCurrency (amount) {
