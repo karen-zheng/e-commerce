@@ -16,8 +16,6 @@
      </script>-->
     <link rel="stylesheet" href="/main.css"/>
     <link href="https://fonts.googleapis.com/css?family=Lora|Muli" rel="stylesheet">
-    <script src="https://use.fontawesome.com/d03e387cdb.js"></script>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 </head>
 <body>
     <div class="logo">
@@ -61,6 +59,12 @@
         <a class="footerItem" href="https://www.instagram.com/karen.y.zheng/">instagram</a>
         <a class="footerItem" href="http://www.facebook.com">facebook</a>
     </div>
+
+
+    <!----------------------------script--------------------------------->
+
+    <script src="https://use.fontawesome.com/d03e387cdb.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -71,33 +75,7 @@
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
         crossorigin="anonymous"></script>
 
-    <script>
-        //sticky menu
-        // only one scroll listener
-        window.addEventListener("scroll", scrollingdown);
-        // calculate menu height once
-        var menu = $('#menu');
-        var targetPos = menu.offset().top;
-
-        function scrollingdown() {
-            var scrollPos = window.scrollY;
-
-            if (scrollPos > targetPos) {
-                menu.addClass("stickyMenu").removeClass("menu");
-                $(".logo").css("margin-bottom", "80px");
-            } else {
-                menu.removeClass("stickyMenu").addClass("menu");
-                $(".logo").css("margin-bottom", "0px");
-            }
-        }
-
-        // format currency
-        function formatCurrency (amount) {
-            var formatted = amount.toLocaleString('en-GB', {style: 'currency', currency: 'NZD' });
-            return formatted;
-        }
-
-    </script>
+    <script src="indexScript.js"></script>
     {%block script%}{%endblock%}
 
 </body>
