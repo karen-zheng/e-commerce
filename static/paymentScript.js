@@ -17,13 +17,14 @@ paypal.Button.render({
     },
     onAuthorize: function(data, actions) {
         return actions.payment.execute().then(function() {
-            document.cookie = " cartId" + "=; expires=Thu, 01-Jan-70 00:00:01 GMT;";
-            var payment = $(".showPopup");
-            payment.addClass("active");
-            setInterval(revert, 8000);
-            function revert () {
-                $(".showPopup").removeClass("active");
-            }
+            Cookies.remove('cartId');
+            window.location = "/";
+            // var payment = $(".showPopup");
+            // payment.addClass("active");
+            // setInterval(revert, 8000);
+            // function revert () {
+            //     $(".showPopup").removeClass("active");
+            // }
         });
     }
 }, '#paypal-button');
