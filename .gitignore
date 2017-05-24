@@ -1,3 +1,4 @@
 .idea
 node_modules
 static/main.css
+.DS_Store
